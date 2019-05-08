@@ -10,6 +10,7 @@ class Visualizer {
   float x, y;
   float [] values;
   float [] speeds;
+
   Visualizer(float x, float y) {
     this.x = x;
     this.y = y;
@@ -40,46 +41,46 @@ class Visualizer {
 
     //???WRITE THIS METHOD FIRST!!!
     //THESE ARE WRONG: They just illustrate how they could look
-    for(int i = 0 ; i < values.length ; i ++)
+    for (int i = 0; i < values.length; i ++)
     {
-      if(values[i] < 0)
+      if (values[i] < 0)
       {
         fill(255, 0, 0);
-        rect(x + (40 * i), y + 100, 40 , values[i] * -1);
-      }
-      else
+        rect(x + (40 * i), y + 100, 40, values[i] * -1);
+      } else
       {
-        fill(0,255,0);
+        fill(0, 255, 0);
         rect(x + (40 * i), y + (100 - values[i]), 40, values[i]);
       }
 
 
-    //Width of the visualizer is 400!
-
-  
+      //Width of the visualizer is 400!
+    }
   }
-void update() {
-  //???WRITE THIS METHOD SECOND!!!
-  for (int i = 0; i < values.length; i++) 
-  {
-    values[i] += speeds[i]; //the speed updates the values. Do not touch this.
-    //??? keep them values between max/min value so they stay in the box.
-    if(values[i] > 100 || values[i] < -100)
+
+  void update() {
+    //???WRITE THIS METHOD SECOND!!!
+    for (int i = 0; i < values.length; i++) 
     {
-      values[i] - 2(speeds[i])
-      //??? reverse the speeds so the bar oscillates up/down when it reaches max/min
-      speeds[i] *= -1;
+      values[i] += speeds[i]; //the speed updates the values. Do not touch this.
+      //??? keep them values between max/min value so they stay in the box.
+      if (values[i] > 100 || values[i] < -100)
+      {
+        values[i] = values[i] - 2 * (speeds[i]);
+        //??? reverse the speeds so the bar oscillates up/down when it reaches max/min
+        speeds[i] *= -1;
+      }
     }
   }
 }
 
 
-void setup() {
-  size(600, 500);
-  v = new Visualizer(20, 20);
-}
-void draw() {
-  background(255);
-  v.display();
-  v.update();
-}
+  void setup() {
+    size(600, 500);
+    v = new Visualizer(20, 20);
+  }
+  void draw() {
+    background(255);
+    v.display();
+    v.update();
+  }
